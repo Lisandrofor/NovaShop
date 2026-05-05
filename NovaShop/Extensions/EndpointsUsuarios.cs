@@ -2,32 +2,32 @@
 
 namespace NovaShop.Extensions
 {
-    public static class EndpointsExtensions
+    public static class EndpointsUsuarios
     { static
         public void MapItemEndpoints(this WebApplication app)
         {
-            var items = new List<Item>();
+            var usuarios = new List<Usuarios>();
             var idCounter = 1L;
 
             // GET all
-            app.MapGet("/items", () =>
+            app.MapGet("/usuarios", () =>
             {
-                return Results.Ok(items);
+                return Results.Ok(usuarios);
             })
-.WithTags("Items");
+.WithTags("Usuarios");
 
             // GET by id
-            app.MapGet("/items/{id}", (long id) =>
+            app.MapGet("/usuarios/{id}", (long id) =>
             {
-                var item = items.FirstOrDefault(i => i.Id == id);
-                return item is not null ? Results.Ok(item) : Results.NotFound();
+                var usuario = usuarios.FirstOrDefault(i => i.Id == id);
+                return usuario is not null ? Results.Ok(usuario) : Results.NotFound();
             })
-.WithTags("Items");
+.WithTags("Usuarios");
 
             // POST
-            app.MapPost("/items", (CreateItemRequest req) =>
+            app.MapPost("/usuarios", (CreateItemRequest req) =>
             {
-                var item = new Item
+                var usuario = new Usuarios
                 {
                     Id = idCounter++,
                     Name = req.Name,
@@ -37,16 +37,16 @@ namespace NovaShop.Extensions
                     CreatedAt = DateTime.UtcNow.ToString("o")
                 };
 
-                items.Add(item);
+                items.Add(usuario);
 
-                return Results.Ok(item);
+                return Results.Ok(usuario);
             })
-.WithTags("Items");
+.WithTags("Usuarios");
 
             // PUT
-            app.MapPut("/items/{id}", (long id, UpdateItemRequest req) =>
+            app.MapPut("/usuarios/{id}", (long id, UpdateItemRequest req) =>
             {
-                var existing = items.FirstOrDefault(i => i.Id == id);
+                var existing = usuarios.FirstOrDefault(i => i.Id == id);
 
                 if (existing is null)
                     return Results.NotFound();
@@ -65,21 +65,21 @@ namespace NovaShop.Extensions
 
                 return Results.Ok(updated);
             })
-.WithTags("Items");
+.WithTags("Usuarios");
 
             // DELETE
-            app.MapDelete("/items/{id}", (long id) =>
+            app.MapDelete("/usuarios/{id}", (long id) =>
             {
-                var item = items.FirstOrDefault(i => i.Id == id);
+                var usuario = usuarios.FirstOrDefault(i => i.Id == id);
 
-                if (item is null)
+                if (usuario is null)
                     return Results.NotFound();
 
-                items.Remove(item);
+                usuarios.Remove(usuario);
 
                 return Results.Ok();
             })
-.WithTags("Items");
+.WithTags("Usuarios");
         }
 
 
