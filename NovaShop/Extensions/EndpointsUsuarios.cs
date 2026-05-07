@@ -30,10 +30,11 @@ namespace NovaShop.Extensions
                 var usuario = new Usuarios
                 {
                     Id = idCounter++,
+                    Dni=req.Dni,
                     Name = req.Name,
-                    Description = req.Description,
-                    Price = (double)req.Price,
-                    Stock = req.Stock,
+                    Apellido = req.Apellido,
+                    Rol = req.Rol,
+                    Email = req.Email,
                     CreatedAt = DateTime.UtcNow.ToString("o")
                 };
 
