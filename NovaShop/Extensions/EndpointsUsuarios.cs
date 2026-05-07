@@ -4,7 +4,7 @@ namespace NovaShop.Extensions
 {
     public static class EndpointsUsuarios
     { static
-        public void MapItemEndpoints(this WebApplication app)
+        public void MapUserEndpoints(this WebApplication app)
         {
             var usuarios = new List<Usuarios>();
             var idCounter = 1L;
@@ -25,7 +25,7 @@ namespace NovaShop.Extensions
 .WithTags("Usuarios");
 
             // POST
-            app.MapPost("/usuarios", (CreateItemRequest req) =>
+            app.MapPost("/usuarios", (CreateUserRequest req) =>
             {
                 var usuario = new Usuarios
                 {
@@ -45,7 +45,7 @@ namespace NovaShop.Extensions
 .WithTags("Usuarios");
 
             // PUT
-            app.MapPut("/usuarios/{id}", (long id, UpdateItemRequest req) =>
+            app.MapPut("/usuarios/{id}", (long id, UpdateUserRequest req) =>
             {
                 var existing = usuarios.FirstOrDefault(i => i.Id == id);
 
@@ -55,7 +55,7 @@ namespace NovaShop.Extensions
                 var updated = existing with
                 {
                     Name = req.Name,
-                    Description = req.Description,
+                    Apellido = req.Apellido,
                     Price = (double)req.Price,
                     Stock = req.Stock,
                     UpdatedAt = DateTime.UtcNow.ToString("o")

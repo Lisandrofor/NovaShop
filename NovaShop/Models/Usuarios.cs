@@ -1,34 +1,32 @@
 ﻿namespace NovaShop.Models
 {
 // ── Entidad principal ─────────────────────────
-    public record Item {
+    public record Usuarios {
         public long Id { get; init; }
         public string Name { get; init; } = string.Empty;
-        public string? Description { get; init; }
-        public double Price { get; init; }
-        public long Stock { get; init; }
+        public string? Apellido { get; init; }
+        public long Dni { get; init; }
+        public string Email { get; init; }
         public string CreatedAt { get; init; } = string.Empty;
         public string? UpdatedAt { get; init; }
                         }
 
-// ── Request para crear un ítem (POST) ─────────────────────────────────────
-       public record CreateItemRequest( 
+// ── Request para crear un Usuario (POST) ─────────────────────────────────────
+       public record CreateUserRequest( 
         string Name,
 
-        string? Description,
+        string? Apellido,
 
-        decimal Price,
+        long Dni,
 
-        int Stock);
-// ── Request para actualizar un ítem (PUT) ─────────────────────────────────
-    public record UpdateItemRequest( 
+        string Email);
+// ── Request para actualizar un Usuario (PUT) ─────────────────────────────────
+    public record UpdateUserRequest( 
     string Name,
 
-    string? Description,
+    string? Apellido,
 
-    decimal Price,
-
-    int Stock);
+    string rol);
 
 
 

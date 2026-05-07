@@ -25,7 +25,7 @@ public partial class Program
         app.UseHttpsRedirection();
 
         // Endpoints
-        app.MapItemEndpoints();
+        app.MapUserEndpoints();
 
         app.Run();
     }
