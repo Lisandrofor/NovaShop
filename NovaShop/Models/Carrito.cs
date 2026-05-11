@@ -2,11 +2,17 @@
 {
     public record Carrito
     {
-      public Guid idCarrito {get; set;}
-      public Guid idUsuario {get;set;}
-      public Guid idProducto { get; set;}
-      public int cantidad {get; set;}
-      public decimal Subtotal{get; set;}
-      
+        public Guid IdCarrito { get; set; }
+
+        public Guid IdUsuario { get; set; }
+
+        // Lista de productos del carrito
+        public List<ItemCarrito> Items { get; set; } = new();
+
+        // Suma total del carrito
+        public decimal Subtotal => Items.Sum(i => i.Total);
+
+        // Cantidad total de productos
+        public int CantidadTotal => Items.Sum(i => i.Cantidad);
     }
 }
