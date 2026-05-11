@@ -6,6 +6,7 @@
       public Guid idUsuario {get;set;}
       public Guid idProducto { get; set;}
       public int cantidad {get; set;}
+      public decimal Subtotal{get; set;}
       
     }
 }
