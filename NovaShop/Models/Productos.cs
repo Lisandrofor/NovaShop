@@ -6,7 +6,7 @@
       public String Descripcion {get; set;}
       public Data time Alta {get; set;}
       public int Stock {get; set;}
-      public Guid Id {get; set;}
+      
 
       
     }
