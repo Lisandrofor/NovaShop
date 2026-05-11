@@ -1,6 +1,6 @@
 ﻿namespace NovaShop.Models
 {
-    public record Productos
+    public record Producto
     {
       public Guid Id {get; set;}
       public String Descripcion {get; set;}
