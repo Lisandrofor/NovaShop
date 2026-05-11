@@ -7,7 +7,7 @@
       public Data time Alta {get; set;}
       public int Stock {get; set;}
       
-
+      public decimal Precio{get; set;}
       
     }
 
