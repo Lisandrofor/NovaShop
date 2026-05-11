@@ -1,6 +1,7 @@
 ﻿namespace NovaShop.Models
 {
-    public class Carrito
+    public record Carrito
     {
+      
     }
 }
