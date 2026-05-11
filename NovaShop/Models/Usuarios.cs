@@ -1,4 +1,6 @@
-﻿namespace NovaShop.Models
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace NovaShop.Models
 {
 // ── Entidad principal ─────────────────────────
     public record Usuarios {
@@ -13,11 +15,9 @@
 
 // ── Request para crear un Usuario (POST) ─────────────────────────────────────
        public record CreateUserRequest( 
-        string Name,
+        Guid Id,
 
-        string? Apellido,
-
-        long Dni,
+       bool Activo,
 
         string Email);
 // ── Request para actualizar un Usuario (PUT) ─────────────────────────────────
@@ -31,3 +31,11 @@
 
 
 }
+// ---DTO Usuarios
+public class UsuarioDto
+{
+    public Guid Id { get; set; }
+    public string Email { get; set; }
+    public bool Activo { get; set; }
+}
+

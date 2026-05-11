@@ -1,6 +1,6 @@
 ﻿namespace NovaShop.Models
 {
-    public class OrdenesVentas
+    public class Carrito
     {
     }
 }
