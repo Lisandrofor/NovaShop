@@ -8,7 +8,7 @@
       public int Stock {get; set;}
       
       public decimal Precio{get; set;}
-      
+      public int Categoría {get; set;}
     }
 
 
