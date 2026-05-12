@@ -6,21 +6,21 @@ namespace NovaShop.Extensions
     { static
         public void MapItemEndpoints(this WebApplication app)
         {
-            var ItemsCarrito = new List<OrdenVentas>();
+            var itemsCarrito = new List<ItemsCarrito>();
             var idCounter = 1L;
 
             // GET all
-            app.MapGet("/ordenesventas", () =>
+            app.MapGet("/itemscarrito", () =>
             {
-                return Results.Ok(ordenes);
+                return Results.Ok(itemscarrito);
             })
-.WithTags("OrdenesVentas");
+.WithTags("ItemsCarrito");
 
             // GET by id
-            app.MapGet("/productos/{id}", (long id) =>
+            app.MapGet("/itemscarrito/{id}", (long id) =>
             {
-                var producto = productos.FirstOrDefault(i => i.Id == id);
-                return producto is not null ? Results.Ok(producto) : Results.NotFound();
+                var item = itemscarrito.FirstOrDefault(i => i.Id == id);
+                return item is not null ? Results.Ok(producto) : Results.NotFound();
             })
 .WithTags("Productos");
 
