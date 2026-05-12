@@ -11,7 +11,11 @@ namespace NovaShop.Models
         public string Email { get; init; }
         public string CreatedAt { get; init; } = string.Empty;
         public string? UpdatedAt { get; init; }
-                        }
+
+        public Perfiles Perfiles { get; set; }=new Perfiles();
+                        
+    
+    }
 
 // ── Request para crear un Usuario (POST) ─────────────────────────────────────
        public record CreateUserRequest( 
