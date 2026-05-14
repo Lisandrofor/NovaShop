@@ -1,6 +1,6 @@
 ﻿namespace NovaShop.Services.OrdenVenta
 {
-    public class CrearOrdenVenta
+    public class OrdenVentaService
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace NovaShop.Services.Producto
 {
-    public class CrearProductoService
+    public class ProductoService
     {
     }
 }

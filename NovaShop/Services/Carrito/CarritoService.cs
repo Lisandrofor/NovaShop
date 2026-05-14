@@ -1,6 +1,6 @@
 ﻿namespace NovaShop.Services.Carrito
 {
-    public class ActualizarCarritocs
+    public class CarritoService
     {
     }
 }

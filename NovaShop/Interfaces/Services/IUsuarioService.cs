@@ -1,6 +1,6 @@
 ﻿namespace NovaShop.Interfaces.Services
 {
-    public class IUsuarioService
+    public interface IUsuarioService
     {
     }
 }

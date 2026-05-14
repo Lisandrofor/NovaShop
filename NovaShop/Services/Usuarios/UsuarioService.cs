@@ -1,13 +1,14 @@
 ﻿using NovaShop.Interfaces.Repositorios;
 using NovaShop.Models;
 
-namespace NovaShop.Services.Usuario
+namespace NovaShop.Services.Usuarios
+
 {
-    public class CrearUsuarioService
+    public class UsuarioService
     {
         private readonly IUsuarioRepository _repo;
 
-        public CrearUsuarioService(IUsuarioRepository repo)
+        public UsuarioService(IUsuarioRepository repo)
         {
             _repo = repo;
         }
