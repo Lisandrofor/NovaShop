@@ -6,7 +6,7 @@ namespace NovaShop.Extensions
     { static
         public void MapUserEndpoints(this WebApplication app)
         {
-            var usuarios = new List<Usuarios>();
+            var usuarios = new List<Usuario>();
             var idCounter = 1L;
 
             // GET all
@@ -27,7 +27,7 @@ namespace NovaShop.Extensions
             // POST
             app.MapPost("/usuarios", (CreateUserRequest req) =>
             {
-                var usuario = new Usuarios
+                var usuario = new Usuario
                 {
                     Id = idCounter++,
                     Dni=req.Dni,

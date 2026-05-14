@@ -3,7 +3,7 @@
 namespace NovaShop.Models
 {
 // ── Entidad principal ─────────────────────────
-    public record Usuarios {
+    public record Usuario {
         public long Id { get; init; }
         public string Name { get; init; } = string.Empty;
         public string? Apellido { get; init; }
