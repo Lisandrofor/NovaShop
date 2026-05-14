@@ -2,7 +2,7 @@
 
 namespace NovaShop.Interfaces.Repositorios
 {
-    public class IUsuarioRepository
+    public interface IUsuarioRepository
     {
         
             Task<bool> ExisteEmail(string email);
