@@ -1,37 +1,106 @@
 ﻿
+using Microsoft.AspNetCore.Connections;
 using NovaShop.Data;
 using NovaShop.Interfaces.Repositorios;
 using NovaShop.Models;
 using System;
+using Dapper;
 
 namespace NovaShop.Repositories
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        private readonly AppDbContext _context;
+        private readonly DbConnection _connection;
 
-        public UsuarioRepository(AppDbContext context)
+        public UsuarioRepository(
+             DbConnection connection)
         {
-            _context = context;
+            _connection = connection;
         }
 
         public async Task<bool> ExisteEmail(string email)
         {
-            return await _context.Usuarios
-                .AnyAsync(u => u.Email == email);
+            using var connection =
+                _connection.CreateConnection();
+
+            string sql = """
+                SELECT COUNT(*)
+                FROM Usuarios
+                WHERE Email = @Email
+            """;
+
+            int cantidad =
+                await connection.ExecuteScalarAsync<int>(sql,
+                    new { Email = email }
+                );
+
+            return cantidad > 0;
         }
 
         public async Task Guardar(Usuario usuario)
         {
-            await _context.Usuarios.AddAsync(usuario);
+            using var connection =
+                _connection.CreateConnection();
 
-            await _context.SaveChangesAsync();
+            string sql = """
+                INSERT INTO Usuarios
+                (
+                    Id,
+                    Nombre,
+                    Apellido,
+                    Dni,
+                    Email,
+                    CreatedAt,
+                    UpdatedAt
+                )
+                VALUES
+                (
+                    @Id,
+                    @Nombre,
+                    @Apellido,
+                    @Dni,
+                    @Email,
+                    @CreatedAt,
+                    @UpdatedAt
+                )
+            """;
+
+            await connection.ExecuteAsync(sql, usuario);
         }
 
-        public async Task<Usuario?> ObtenerPorId(long id)
+        public async Task<Usuario?> ObtenerPorId(Guid id)
         {
-            return await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.Id == id);
+            using var connection =
+                _connection.CreateConnection();
+
+            string sql = """
+                SELECT *
+                FROM Usuarios
+                WHERE Id = @Id
+            """;
+
+            return await connection
+                .QueryFirstOrDefaultAsync<Usuario>(
+                    sql,
+                    new { Id = id }
+                );
         }
+
+        public async Task<IEnumerable<Usuario>> ObtenerUsuarios()
+        {
+            using var connection =
+                _connection.CreateConnection();
+
+            string sql = """
+                        SELECT *
+                        FROM Usuarios
+                        """;
+
+            return await connection
+                .QueryAsync<Usuario>(sql);
+        }
+
+
+
     }
 }
