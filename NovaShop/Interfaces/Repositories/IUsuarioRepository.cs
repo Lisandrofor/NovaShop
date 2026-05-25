@@ -1,5 +1,6 @@
 ﻿using NovaShop.Models;
 
+
 namespace NovaShop.Interfaces.Repositorios
 {
     public interface IUsuarioRepository

@@ -9,7 +9,9 @@ namespace NovaShop.Models
         public string Nombre { get; init; } = string.Empty;
         public string? Apellido { get; init; }
         public long Dni { get; init; }
-        public string Email { get; init; }
+        public string? Email { get; init; }
+        public bool  Activo { get; init; }
+        public string Password { get; init; }
         public string CreatedAt { get; init; } = string.Empty;
         public string? UpdatedAt { get; init; }
 
@@ -20,18 +22,19 @@ namespace NovaShop.Models
 
     // ── Request para crear un Usuario (POST) ─────────────────────────────────────
     public record CreateUserRequest(
-     Guid Id,
-
-    bool Activo,
-
-     string Email);
+    string Nombre,
+    string Apellido,
+    long Dni,
+    string Email,
+    string Password);
     // ── Request para actualizar un Usuario (PUT) ─────────────────────────────────
     public record UpdateUserRequest(
-    string Name,
+    string Nombre,
 
     string? Apellido,
 
-    string rol);
+    string Email,
+    string Password);
 
 
 

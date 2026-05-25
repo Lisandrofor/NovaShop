@@ -1,4 +1,5 @@
 ﻿using NovaShop.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace NovaShop.Extensions
 {
@@ -29,16 +30,15 @@ namespace NovaShop.Extensions
             {
                 var usuario = new Usuario
                 {
-                    Id = idCounter++,
-                    Dni=req.Dni,
-                    Name = req.Name,
+                    Nombre = req.Nombre,
+                    Dni = req.Dni,
                     Apellido = req.Apellido,
-                    Rol = req.Rol,
                     Email = req.Email,
-                    CreatedAt = DateTime.UtcNow.ToString("o")
+                    Password= req.Password,
+
                 };
 
-                items.Add(usuario);
+                usuarios.Add(usuario);
 
                 return Results.Ok(usuario);
             })
@@ -54,15 +54,15 @@ namespace NovaShop.Extensions
 
                 var updated = existing with
                 {
-                    Name = req.Name,
+                    Nombre = req.Nombre,
                     Apellido = req.Apellido,
-                    Price = (double)req.Price,
-                    Stock = req.Stock,
-                    UpdatedAt = DateTime.UtcNow.ToString("o")
+                    Email=req.Email,
+                    Password = req.Password,
+                    
                 };
 
-                items.Remove(existing);
-                items.Add(updated);
+                usuarios.Remove(existing);
+                usuarios.Add(updated);
 
                 return Results.Ok(updated);
             })

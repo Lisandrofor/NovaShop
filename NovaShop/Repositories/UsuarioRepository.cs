@@ -1,24 +1,37 @@
-﻿using NovaShop.Interfaces.Repositorios;
+﻿
+using NovaShop.Data;
+using NovaShop.Interfaces.Repositorios;
 using NovaShop.Models;
+using System;
 
 namespace NovaShop.Repositories
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        private readonly List<Usuario> _usuarios = new();
+        private readonly AppDbContext _context;
 
-        public Task<bool> ExisteEmail(string email)
+        public UsuarioRepository(AppDbContext context)
         {
-            bool existe = _usuarios.Any(u => u.Email == email);
-
-            return Task.FromResult(existe);
+            _context = context;
         }
 
-        public Task Guardar(Usuario usuario)
+        public async Task<bool> ExisteEmail(string email)
         {
-            _usuarios.Add(usuario);
+            return await _context.Usuarios
+                .AnyAsync(u => u.Email == email);
+        }
 
-            return Task.CompletedTask;
+        public async Task Guardar(Usuario usuario)
+        {
+            await _context.Usuarios.AddAsync(usuario);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Usuario?> ObtenerPorId(long id)
+        {
+            return await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
     }
 }
