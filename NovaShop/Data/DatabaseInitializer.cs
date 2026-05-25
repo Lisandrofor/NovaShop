@@ -25,6 +25,7 @@ namespace NovaShop.Data
                     Nombre      TEXT NOT NULL,
                     Apellido    TEXT NOT NULL,
                     Dni         INTEGER NOT NULL,
+                    Perfil      INTEGER NOT NULL,
                     Email       TEXT NOT NULL,
                     CreatedAt   TEXT NOT NULL,
                     UpdatedAt   TEXT

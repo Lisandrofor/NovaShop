@@ -50,6 +50,7 @@ namespace NovaShop.Repositories
                     Apellido,
                     Dni,
                     Email,
+                    Perfiles,
                     CreatedAt,
                     UpdatedAt
                 )
@@ -60,6 +61,7 @@ namespace NovaShop.Repositories
                     @Apellido,
                     @Dni,
                     @Email,
+                    @Perfiles,
                     @CreatedAt,
                     @UpdatedAt
                 )
@@ -99,7 +101,23 @@ namespace NovaShop.Repositories
             return await connection
                 .QueryAsync<Usuario>(sql);
         }
+        public async Task<bool> ActualizarUsuario(Usuario usuario)
+        {
+            using var connection = _connection.CreateConnection();
 
+            string sql = """
+        UPDATE Usuarios
+        SET
+            Nombre = @Nombre,
+            Email = @Email,
+            Password = @Password
+        WHERE Id = @Id
+    """;
+
+            int filasAfectadas = await connection.ExecuteAsync(sql, usuario);
+
+            return filasAfectadas > 0;
+        }
 
 
     }
