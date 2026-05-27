@@ -1,4 +1,5 @@
-﻿using NovaShop.Models;
+﻿using NovaShop.Interfaces.Services;
+using NovaShop.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace NovaShop.Extensions
@@ -26,7 +27,7 @@ namespace NovaShop.Extensions
 .WithTags("Usuarios");
 
             // POST
-            app.MapPost("/usuarios", (CreateUserRequest req) =>
+            app.MapPost("/usuarios", async (CreateUserRequest req, IUsuarioService service) =>
             {
                 var usuario = new Usuario
                 {
@@ -38,9 +39,11 @@ namespace NovaShop.Extensions
 
                 };
 
-                usuarios.Add(usuario);
+                await service.CrearUsuario(usuario);
 
                 return Results.Ok(usuario);
+
+               
             })
 .WithTags("Usuarios");
 
