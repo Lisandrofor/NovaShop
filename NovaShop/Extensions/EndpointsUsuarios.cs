@@ -1,4 +1,5 @@
 ﻿using NovaShop.Interfaces.Services;
+using NovaShop.Interfaces.Repositorios;
 using NovaShop.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -8,21 +9,27 @@ namespace NovaShop.Extensions
     { static
         public void MapUserEndpoints(this WebApplication app)
         {
-            var usuarios = new List<Usuario>();
+           
             var idCounter = 1L;
 
             // GET all
-            app.MapGet("/usuarios", () =>
+            app.MapGet("/usuarios",async (IUsuarioRepository repo) =>
             {
+                var usuarios = await repo.ObtenerUsuarios();
+
                 return Results.Ok(usuarios);
             })
 .WithTags("Usuarios");
 
             // GET by id
-            app.MapGet("/usuarios/{id}", (long id) =>
+            app.MapGet("/usuarios/{id}",async (long id,IUsuarioRepository repo)  =>
             {
+                var usuarios = await repo.ObtenerUsuarios();
+
                 var usuario = usuarios.FirstOrDefault(i => i.Id == id);
-                return usuario is not null ? Results.Ok(usuario) : Results.NotFound();
+                return usuario is not null ? 
+                Results.Ok(usuario) :
+                Results.NotFound();
             })
 .WithTags("Usuarios");
 
