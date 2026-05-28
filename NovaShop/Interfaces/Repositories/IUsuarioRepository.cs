@@ -7,6 +7,7 @@ namespace NovaShop.Interfaces.Repositorios
     {
         
             Task<bool> ExisteEmail(string email);
+Task<bool> ExisteDNI (long dni);
 
             Task Guardar(Usuario usuario);
 
