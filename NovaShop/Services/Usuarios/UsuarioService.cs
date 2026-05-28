@@ -37,7 +37,11 @@ namespace NovaShop.Services.Usuarios
             }
         }
 
-public async Task GuardarUsuario
+public async Task 
+GuardarUsuario(Usuario usuario)
+{if 
+
+}
 
     }
 }
