@@ -39,9 +39,10 @@ namespace NovaShop.Services.Usuarios
 
 public async Task 
 GuardarUsuario(Usuario usuario)
-{if 
-
+{ bool existe = await _repository.ExisteDNI(usuario.Email);
+if ( existe)
+{
+throw new Exception("El Usuario ya existe");
 }
-
-    }
+await _repository.Guardar(usuario);
 }
