@@ -18,6 +18,25 @@ namespace NovaShop.Repositories
             _connection = connection;
         }
 
+        public async Task<bool> ExisteDNI(long dni)
+        {
+            using var connection =
+                _connection.CreateConnection();
+
+            string sql = """
+                SELECT COUNT(*)
+                FROM Usuarios
+                WHERE Dni = @dni
+            """;
+
+            int cantidad =
+                await connection.ExecuteScalarAsync<int>(sql,
+                    new { Dni = dni }
+                );
+
+            return cantidad > 0;
+        }
+
         public async Task<bool> ExisteEmail(string email)
         {
             using var connection =
@@ -36,6 +55,7 @@ namespace NovaShop.Repositories
 
             return cantidad > 0;
         }
+
 
         public async Task Guardar(Usuario usuario)
         {
