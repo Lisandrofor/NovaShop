@@ -2,6 +2,7 @@
 using NovaShop.Interfaces.Repositorios;
 using NovaShop.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace NovaShop.Extensions
 {
@@ -55,33 +56,40 @@ namespace NovaShop.Extensions
 .WithTags("Usuarios");
 
             // PUT
-            app.MapPut("/usuarios/{id}", (long id, UpdateUserRequest req) =>
+            app.MapPut("/usuarios/{id}", async (long id, IUsuarioRepository repo,UpdateUserRequest req) =>
             {
-                var existing = usuarios.FirstOrDefault(i => i.Id == id);
-
-                if (existing is null)
+                
+                var usuario = await repo.ObtenerPorId(id);
+                
+                if (usuario is null)
                     return Results.NotFound();
-
-                var updated = existing with
+                
+                
+                var actualizado = usuario with
                 {
                     Nombre = req.Nombre,
                     Apellido = req.Apellido,
-                    Email=req.Email,
-                    Password = req.Password,
-                    
+                    Email = req.Email,
+                    Password = req.Password
                 };
+                
 
-                usuarios.Remove(existing);
-                usuarios.Add(updated);
+                await repo.Actualizar(actualizado);
 
-                return Results.Ok(updated);
+                return Results.Ok(actualizado);
             })
 .WithTags("Usuarios");
 
+
+
+            
+
+
             // DELETE
-            app.MapDelete("/usuarios/{id}", (long id) =>
+            app.MapDelete("/usuarios/{id}", (long id,IUsuarioRepository repo) =>
             {
-                var usuario = usuarios.FirstOrDefault(i => i.Id == id);
+
+                var usuario = await repo.ObtenerPorId(id);
 
                 if (usuario is null)
                     return Results.NotFound();

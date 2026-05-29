@@ -70,7 +70,7 @@ namespace NovaShop.Repositories
             await connection.ExecuteAsync(sql, usuario);
         }
 
-        public async Task<Usuario?> ObtenerPorId(Guid id)
+        public async Task<Usuario?> ObtenerPorId(long id)
         {
             using var connection =
                 _connection.CreateConnection();
@@ -101,7 +101,7 @@ namespace NovaShop.Repositories
             return await connection
                 .QueryAsync<Usuario>(sql);
         }
-        public async Task<bool> ActualizarUsuario(Usuario usuario)
+        public async Task<bool> Actualizar(Usuario usuario)
         {
             using var connection = _connection.CreateConnection();
 

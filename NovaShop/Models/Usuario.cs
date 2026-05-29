@@ -6,7 +6,7 @@ namespace NovaShop.Models
     public record Usuario
     {
         public long Id { get; init; }
-        public string Nombre { get; init; } = string.Empty;
+        public string Nombre { get; set; } = string.Empty;
         public string? Apellido { get; init; }
         public long Dni { get; init; }
         public string? Email { get; init; }
