@@ -86,17 +86,15 @@ namespace NovaShop.Extensions
 
 
             // DELETE
-            app.MapDelete("/usuarios/{id}", (long id,IUsuarioRepository repo) =>
+            app.MapDelete("/usuarios/{id}", async (long id,IUsuarioRepository repo) =>
             {
+                var usuarios = await repo.ObtenerUsuarios();
 
-                var usuario = await repo.ObtenerPorId(id);
+                var usuario = usuarios.FirstOrDefault(i => i.Id == id);
+                return usuario is not null ?
+                await repo.EliminarUsuario(id):
+                Results.NotFound();
 
-                if (usuario is null)
-                    return Results.NotFound();
-
-                usuarios.Remove(usuario);
-
-                return Results.Ok();
             })
 .WithTags("Usuarios");
         }

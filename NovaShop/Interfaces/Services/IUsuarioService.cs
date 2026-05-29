@@ -6,9 +6,9 @@ namespace NovaShop.Interfaces.Services
     {
         Task CrearUsuario(Usuario usuario);
     
-    Task GuardarUsuario(Usuario usuario);
- Task Actualizar(Usuario usuario);
-Task EliminarUsuario(long ID);
+        Task GuardarUsuario(Usuario usuario);
+        Task Actualizar(Usuario usuario);
+        Task EliminarUsuario(long ID);
     
     
     

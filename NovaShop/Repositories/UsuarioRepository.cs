@@ -139,6 +139,20 @@ namespace NovaShop.Repositories
             return filasAfectadas > 0;
         }
 
+        public async Task EliminarUsuario(long id)
+        {
+            using var connection =
+                _connection.CreateConnection();
+
+            string sql = """
+                SELECT *
+                DELETE Usuarios
+                WHERE Id = @Id
+            """;
+
+            await connection.ExecuteAsync(sql,new { Id = id });
+        }
+
 
     }
 }
