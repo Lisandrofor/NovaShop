@@ -13,7 +13,7 @@ Task<bool> ExisteDNI (long dni);
 
                Task<IEnumerable<Usuario>> ObtenerUsuarios();
                 Task<Usuario?> ObtenerPorId(long id);
-                Task Actualizar(Usuario usuario);
+                Task<bool> ActualizarUsuario(Usuario usuario);
                 Task EliminarUsuario(long id);
 
     }

@@ -121,7 +121,7 @@ namespace NovaShop.Repositories
             return await connection
                 .QueryAsync<Usuario>(sql);
         }
-        public async Task<bool> Actualizar(Usuario usuario)
+        public async Task<bool> ActualizarUsuario(Usuario usuario)
         {
             using var connection = _connection.CreateConnection();
 

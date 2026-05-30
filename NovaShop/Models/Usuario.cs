@@ -12,6 +12,9 @@ namespace NovaShop.Models
         public string? Email { get; init; }
         public bool  Activo { get; init; }
         public string Password { get; init; }
+        public string Username { get; init; } = string.Empty;
+        public string PasswordHash { get; init; } = string.Empty;
+        public string PasswordReset { get; init; } = string.Empty;
         public string CreatedAt { get; init; } = string.Empty;
         public string? UpdatedAt { get; init; }
 
