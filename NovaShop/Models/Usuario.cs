@@ -9,7 +9,7 @@ namespace NovaShop.Models
         public string Nombre { get; set; } = string.Empty;
         public string? Apellido { get; init; }
         public long Dni { get; init; }
-        public string? Email { get; init; }
+        public string Email { get; init; }
         public bool  Activo { get; init; }
         public string Password { get; init; }
         public string Username { get; init; } = string.Empty;
@@ -34,7 +34,7 @@ namespace NovaShop.Models
     public record UpdateUserRequest(
     string Nombre,
 
-    string? Apellido,
+    string Apellido,
 
     string Email,
     string Password);

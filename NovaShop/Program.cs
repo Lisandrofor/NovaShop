@@ -17,9 +17,11 @@ public partial class Program
 
         builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
+        builder.AddAppLogging();
 
         var app = builder.Build();
 
+        app.UseAppMiddleware();
 
         // CREAR BASE Y TABLAS
         using (var scope = app.Services.CreateScope())
