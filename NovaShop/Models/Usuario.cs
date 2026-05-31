@@ -8,6 +8,7 @@ namespace NovaShop.Models
         public long Id { get; init; }
         public string Nombre { get; set; } = string.Empty;
         public string? Apellido { get; init; }
+        public int Edad { get; init; }
         public long Dni { get; init; }
         public string Email { get; init; }
         public bool  Activo { get; init; }
