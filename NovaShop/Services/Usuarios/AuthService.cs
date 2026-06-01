@@ -1,7 +1,8 @@
 ﻿using NovaShop.Interfaces.Repositorios;
+using NovaShop.Interfaces.Services;
 using NovaShop.Models;
 
-public class AuthService
+public class AuthService : IAuthService
 {
     private readonly IUsuarioRepository _repo;
 
@@ -23,9 +24,11 @@ public class AuthService
     }
 
     private bool VerificarPassword(
-       string passwordIngresada,
-       string passwordHash)
+     string passwordIngresada,
+     string passwordHash)
     {
-        return passwordIngresada == passwordHash;
+        return BCrypt.Net.BCrypt.Verify(
+            passwordIngresada,
+            passwordHash);
     }
 }

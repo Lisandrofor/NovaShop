@@ -9,6 +9,7 @@ namespace NovaShop.Interfaces.Services
         Task GuardarUsuario(Usuario usuario);
         Task Actualizar(long id , UpdateUserRequest dto);
         Task EliminarUsuario(long ID);
+        
     
     
     

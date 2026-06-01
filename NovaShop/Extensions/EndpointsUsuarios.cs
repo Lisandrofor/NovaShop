@@ -1,8 +1,9 @@
-﻿using NovaShop.Interfaces.Services;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NovaShop.Interfaces.Repositorios;
+using NovaShop.Interfaces.Services;
 using NovaShop.Models;
+using Serilog;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace NovaShop.Extensions
 {
@@ -10,11 +11,11 @@ namespace NovaShop.Extensions
     { static
         public void MapUserEndpoints(this WebApplication app)
         {
-           
+
             var idCounter = 1L;
 
             // GET all
-            app.MapGet("/usuarios",async (IUsuarioRepository repo) =>
+            app.MapGet("/usuarios", async (IUsuarioRepository repo) =>
             {
                 var usuarios = await repo.ObtenerUsuarios();
 
@@ -23,12 +24,12 @@ namespace NovaShop.Extensions
 .WithTags("Usuarios");
 
             // GET by id
-            app.MapGet("/usuarios/{id}",async (long id,IUsuarioRepository repo)  =>
+            app.MapGet("/usuarios/{id}", async (long id, IUsuarioRepository repo) =>
             {
                 var usuarios = await repo.ObtenerUsuarios();
 
                 var usuario = usuarios.FirstOrDefault(i => i.Id == id);
-                return usuario is not null ? 
+                return usuario is not null ?
                 Results.Ok(usuario) :
                 Results.NotFound();
             })
@@ -43,7 +44,7 @@ namespace NovaShop.Extensions
                     Dni = req.Dni,
                     Apellido = req.Apellido,
                     Email = req.Email,
-                    Password= req.Password,
+                    Password = req.Password,
 
                 };
 
@@ -51,20 +52,20 @@ namespace NovaShop.Extensions
 
                 return Results.Ok(usuario);
 
-               
+
             })
 .WithTags("Usuarios");
 
             // PUT
-            app.MapPut("/usuarios/{id}", async (long id, IUsuarioRepository repo,UpdateUserRequest req) =>
+            app.MapPut("/usuarios/{id}", async (long id, IUsuarioRepository repo, UpdateUserRequest req) =>
             {
-                
+
                 var usuario = await repo.ObtenerPorId(id);
-                
+
                 if (usuario is null)
                     return Results.NotFound();
-                
-                
+
+
                 var actualizado = usuario with
                 {
                     Nombre = req.Nombre,
@@ -72,9 +73,9 @@ namespace NovaShop.Extensions
                     Email = req.Email,
                     Password = req.Password
                 };
-                
 
-                await repo.Actualizar(actualizado);
+
+                await repo.ActualizarUsuario(actualizado);
 
                 return Results.Ok(actualizado);
             })
@@ -82,25 +83,45 @@ namespace NovaShop.Extensions
 
 
 
-            
+
 
 
             // DELETE
             app.MapDelete("/usuarios/{id}", async (long id,IUsuarioRepository repo) =>
             {
-                var usuarios = await repo.ObtenerUsuarios();
+                var usuario = await repo.ObtenerPorId(id);
 
-                var usuario = usuarios.FirstOrDefault(i => i.Id == id);
-                return usuario is not null ?
-                await repo.EliminarUsuario(id):
-                Results.NotFound();
+                if (usuario is null)
+                    return Results.NotFound();
 
-            })
-.WithTags("Usuarios");
+                await repo.EliminarUsuario(id);
+
+                return Results.NoContent();
+            });
+
+
+            // LOGIN
+            app.MapPost("/login", async (CreateUserLoginRequest req, IAuthService service) =>
+                {
+                    var log = new Login
+                    {
+
+                        Email = req.Email,
+                        Password = req.Password,
+
+                    };
+
+                    bool ok = await service.Login(log);
+
+                    if (!ok)
+                        return Results.Unauthorized();
+
+                    return Results.Ok("Login correcto");
+                })
+.WithTags("login");
+
         }
-
-
-
-
     }
 }
+
+

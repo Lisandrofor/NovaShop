@@ -51,4 +51,9 @@ namespace NovaShop.Models
         public bool Activo { get; set; }
     }
 
+    //CreateUserLoginRequest
+    public record CreateUserLoginRequest(           
+        string Email,               
+        string Password);
+
 }
