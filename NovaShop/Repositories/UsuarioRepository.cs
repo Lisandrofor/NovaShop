@@ -55,6 +55,25 @@ namespace NovaShop.Repositories
 
             return cantidad > 0;
         }
+        public async Task<Usuario?> ObtenerPorEmail(string email)
+        {
+            using var connection =
+                _connection.CreateConnection();
+
+            string sql = """
+        SELECT *
+        FROM Usuarios
+        WHERE Email = @Email
+    """;
+
+            return await connection.QueryFirstOrDefaultAsync<Usuario>(
+                sql,
+                new { Email = email }
+            );
+        }
+
+
+
 
 
         public async Task Guardar(Usuario usuario)

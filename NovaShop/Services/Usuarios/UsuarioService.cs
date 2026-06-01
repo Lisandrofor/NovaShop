@@ -1,4 +1,5 @@
-﻿using NovaShop.Interfaces.Repositorios;
+﻿using Humanizer;
+using NovaShop.Interfaces.Repositorios;
 using NovaShop.Interfaces.Services;
 using NovaShop.Models;
 
@@ -35,6 +36,7 @@ namespace NovaShop.Services.Usuarios
                 throw new Exception("El email ya existe");
             }
 
+            usuario.PasswordHash = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
             await _repository.Guardar(usuario);
         }
 

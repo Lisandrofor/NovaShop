@@ -15,6 +15,10 @@ Task<bool> ExisteDNI (long dni);
                 Task<Usuario?> ObtenerPorId(long id);
                 Task<bool> ActualizarUsuario(Usuario usuario);
                 Task EliminarUsuario(long id);
+                Task<Usuario?> ObtenerPorEmail(string email);
+        
+           
+
 
     }
 }

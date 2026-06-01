@@ -14,7 +14,7 @@ namespace NovaShop.Models
         public bool  Activo { get; init; }
         public string Password { get; init; }
         public string Username { get; init; } = string.Empty;
-        public string PasswordHash { get; init; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty;
         public string PasswordReset { get; init; } = string.Empty;
         public string CreatedAt { get; init; } = string.Empty;
         public string? UpdatedAt { get; init; }
