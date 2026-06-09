@@ -40,6 +40,7 @@ namespace NovaShop.Services.Usuarios
 
 string hashAdmin =
     _configuration["AdminSettings:Registrationkey"]!;
+dto.ClaveAdminsitrador=usuario.password;
 
 bool esAdmin = BCrypt.Net.BCrypt.Verify(
     dto.ClaveAdministrador,
@@ -49,9 +50,6 @@ bool esAdmin = BCrypt.Net.BCrypt.Verify(
 
 
 
-
-
- usuario.PasswordHash = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
             await _repository.Guardar(usuario);
         }
 
