@@ -35,15 +35,21 @@ namespace NovaShop.Services.Usuarios
             {
                 throw new Exception("El email ya existe");
             }
-            if (usuario.Perfiles.IdPerfil !=  )
-            {
-                throw new Exception("");
-            }
-            if(usuario.Perfiles != Perfiles.Admin && usuario.Perfiles != Perfiles.User)
+            if (usuario.IdPerfil==1)
+           
+
+string hashAdmin =
+    _configuration["AdminSettings:Registrationkey"]!;
+dto.ClaveAdminsitrador=usuario.password;
+
+bool esAdmin = BCrypt.Net.BCrypt.Verify(
+    dto.ClaveAdministrador,
+    hashAdmin);
 
 
 
-                usuario.PasswordHash = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
+
+
             await _repository.Guardar(usuario);
         }
 

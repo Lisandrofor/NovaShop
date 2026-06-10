@@ -19,7 +19,7 @@ namespace NovaShop.Models
         public string CreatedAt { get; init; } = string.Empty;
         public string? UpdatedAt { get; init; }
 
-        public Perfiles Perfiles { get; set; } = new Perfiles();
+        public int IdPerfil {get;set;}
 
 
     }
@@ -30,7 +30,8 @@ namespace NovaShop.Models
     string Apellido,
     long Dni,
     string Email,
-    string Password);
+    string Password,
+    int IdPerfil);
     // ── Request para actualizar un Usuario (PUT) ─────────────────────────────────
     public record UpdateUserRequest(
     string Nombre,
