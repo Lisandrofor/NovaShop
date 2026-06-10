@@ -35,8 +35,15 @@ namespace NovaShop.Services.Usuarios
             {
                 throw new Exception("El email ya existe");
             }
-            if 
-            usuario.PasswordHash = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
+            if (usuario.Perfiles.IdPerfil !=  )
+            {
+                throw new Exception("");
+            }
+            if(usuario.Perfiles != Perfiles.Admin && usuario.Perfiles != Perfiles.User)
+
+
+
+                usuario.PasswordHash = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
             await _repository.Guardar(usuario);
         }
 
