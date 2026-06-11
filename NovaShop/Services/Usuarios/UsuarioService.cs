@@ -35,11 +35,33 @@ namespace NovaShop.Services.Usuarios
             {
                 throw new Exception("El email ya existe");
             }
+
+            if (string.IsNullOrWhiteSpace(usuario.Password))
+            {
+                throw new Exception("La contraseña es obligatoria");
+            }
+            else if (usuario.Password.Length < 6)
+            {
+                throw new Exception("La contraseña debe tener al menos 6 caracteres");
+            }
+            else if (!usuario.Password.Any(char.IsUpper))
+            {
+                throw new Exception("La contraseña debe contener al menos una letra mayúscula");
+            }
+            else if (!usuario.Password.Any(char.IsLower))
+            {
+                throw new Exception("La contraseña debe contener al menos una letra minúscula");
+            }
+            else if (!usuario.Password.Any(char.IsDigit))
+            {
+                throw new Exception("La contraseña debe contener al menos un número");
+            }
+            else if (usuario.Password!=)
             if (usuario.IdPerfil == 1)
             {
 
                 string hashAdmin =
-        _configuration["AdminSettings:Registrationkey"]!;
+                _configuration["AdminSettings:Registrationkey"]!;
                 dto.ClaveAdminsitrador = usuario.password;
 
                 bool esAdmin = BCrypt.Net.BCrypt.Verify(
