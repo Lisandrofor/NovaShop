@@ -10,19 +10,26 @@ namespace NovaShop.Models
         public string? Apellido { get; init; }
         public int Edad { get; init; }
         public long Dni { get; init; }
-        public string Email { get; init; }
+        public string Email { get; set; } = string.Empty;
         public bool  Activo { get; init; }
-        public string Password { get; init; }
-        public string Username { get; init; } = string.Empty;
+        public string? Password { get; set; }
+        public string Username { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
-        public string PasswordReset { get; init; } = string.Empty;
+        public string PasswordReset { get; set; } = string.Empty;
         public string CreatedAt { get; init; } = string.Empty;
         public string? UpdatedAt { get; init; }
 
         public int IdPerfil {get;set;}
 
 
+       
+
+
     }
+
+    
+
+
 
     // ── Request para crear un Usuario (POST) ─────────────────────────────────────
     public record CreateUserRequest(
@@ -48,7 +55,7 @@ namespace NovaShop.Models
     public class UsuarioDto
     {
         public Guid Id { get; set; }
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
         public bool Activo { get; set; }
     }
 

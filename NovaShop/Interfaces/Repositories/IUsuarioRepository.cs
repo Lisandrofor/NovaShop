@@ -6,12 +6,12 @@ namespace NovaShop.Interfaces.Repositorios
     public interface IUsuarioRepository
     {
         
-            Task<bool> ExisteEmail(string email);
-Task<bool> ExisteDNI (long dni);
+                Task<bool> ExisteEmail(string email);
+                Task<bool> ExisteDNI (long dni);
 
-            Task Guardar(Usuario usuario);
+                Task Guardar(Usuario usuario);
 
-               Task<IEnumerable<Usuario>> ObtenerUsuarios();
+                Task<IEnumerable<Usuario>> ObtenerUsuarios();
                 Task<Usuario?> ObtenerPorId(long id);
                 Task<bool> ActualizarUsuario(Usuario usuario);
                 Task EliminarUsuario(long id);

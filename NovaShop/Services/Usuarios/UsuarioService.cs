@@ -29,7 +29,14 @@ namespace NovaShop.Services.Usuarios
                 throw new Exception("Debe ser mayor de edad");
             }
 
+            if (string.IsNullOrWhiteSpace(usuario.Email))
+            {
+                throw new Exception("El email es Obligatorio");
+            }
+
+
             bool existe = await _repository.ExisteEmail(usuario.Email);
+
 
             if (existe)
             {
@@ -56,19 +63,14 @@ namespace NovaShop.Services.Usuarios
             {
                 throw new Exception("La contraseña debe contener al menos un número");
             }
-            else if (usuario.Password!=)
-            if (usuario.IdPerfil == 1)
-            {
+            //else if (usuario.Password==)
+            //if (usuario.IdPerfil == 1)
+            //{
 
-                string hashAdmin =
-                _configuration["AdminSettings:Registrationkey"]!;
-                dto.ClaveAdminsitrador = usuario.password;
+               
 
-                bool esAdmin = BCrypt.Net.BCrypt.Verify(
-                    dto.ClaveAdministrador,
-                    hashAdmin);
-
-            }
+               
+            //}
 
 
 
@@ -103,12 +105,15 @@ namespace NovaShop.Services.Usuarios
             bool emailExiste =
                 await _repository.ExisteEmail(dto.Email);
 
-            if (emailExiste && !usuario.Email.Equals(dto.Email,
-                    StringComparison.OrdinalIgnoreCase))
+            if (emailExiste && !string.Equals(
+            usuario.Email,
+            dto.Email,
+            StringComparison.OrdinalIgnoreCase))
             {
                 throw new Exception("El email ya existe");
             }
 
+            
             var usuarioActualizado = new Usuario
             {
                 Id = usuario.Id,
@@ -121,6 +126,7 @@ namespace NovaShop.Services.Usuarios
             _logger.LogInformation(
                 "Usuario {Id} actualizado correctamente",
                 id);
+        
         }
 
         public async Task EliminarUsuario(long id)
@@ -146,5 +152,4 @@ namespace NovaShop.Services.Usuarios
 
     }
 }
-       
-        
+      

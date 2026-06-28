@@ -45,7 +45,7 @@ namespace NovaShop.Extensions
                     Apellido = req.Apellido,
                     Email = req.Email,
                     Password = req.Password,
-    Perfil=req.Perfil
+                    IdPerfil=req.IdPerfil
 
                 };
 
@@ -72,8 +72,8 @@ namespace NovaShop.Extensions
                     Nombre = req.Nombre,
                     Apellido = req.Apellido,
                     Email = req.Email,
-                    Password = req.Password,
-                         IdPerfil=req.IdPerfil
+                    Password = req.Password
+                    
                 };
 
 

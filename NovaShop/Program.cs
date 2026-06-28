@@ -2,6 +2,7 @@ using NovaShop.Data;
 using NovaShop.Extensions;
 using NovaShop.Interfaces.Repositorios;
 using NovaShop.Repositories;
+using BCrypt.Net;
 
 
 
@@ -11,6 +12,9 @@ public partial class Program
     {
 
         var builder = WebApplication.CreateBuilder(args);
+
+        Console.WriteLine(
+        BCrypt.Net.BCrypt.HashPassword("Admin123"));
 
         // REGISTRAR SERVICIOS
         builder.Services.AddScoped<DatabaseInitializer>();
