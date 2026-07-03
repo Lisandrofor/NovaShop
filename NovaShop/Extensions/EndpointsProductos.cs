@@ -1,4 +1,5 @@
-﻿using NovaShop.Models;
+﻿using NovaShop.Interfaces.Repositorios;
+using NovaShop.Models;
 
 namespace NovaShop.Extensions
 {
@@ -6,34 +7,35 @@ namespace NovaShop.Extensions
     { static
         public void MapItemEndpoints(this WebApplication app)
         {
-            var productos = new List<Productos>();
+           
             var idCounter = 1L;
 
             // GET all
-            app.MapGet("/productos", () =>
+            app.MapGet("/productos", async(IProductosRepository repo) =>
             {
+                var productos = await repo.ObtenerProductos();
                 return Results.Ok(productos);
             })
 .WithTags("Productos");
 
             // GET by id
-            app.MapGet("/productos/{id}", (long id) =>
+            app.MapGet("/productos/{id}",async (Guid id, IProductosRepository repo) =>
             {
+                var productos = await repo.ObtenerProductos();
                 var producto = productos.FirstOrDefault(i => i.Id == id);
                 return producto is not null ? Results.Ok(producto) : Results.NotFound();
             })
 .WithTags("Productos");
 
             // POST
-            app.MapPost("/productos", (CreateItemRequest req) =>
+            app.MapPost("/productos", (CreateProductRequest req) =>
             {
-                var producto = new Productos
+                var producto = new Producto
                 {
-                    Id = idCounter++,
-                    Name = req.Name,
-                    Description = req.Description,
-                    Price = (double)req.Price,
+                   
+                    Descripcion = req.Descripcion,
                     Stock = req.Stock,
+                    Precio = req.Precio,
                     CreatedAt = DateTime.UtcNow.ToString("o")
                 };
 

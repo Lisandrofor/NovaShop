@@ -6,9 +6,12 @@ namespace NovaShop.Interfaces.Repositorios
     public interface IProductosRepository
     {
 
-        Task<bool> ExisteStock(string stock);
+        Task<IEnumerable<Producto>> ObtenerProductos();
 
-        Task Guardar(Producto producto);
+        Task GuardarProducto(Producto producto);
+        Task<Producto?> ObtenerProductoId(Guid id);
+        Task<bool> ActualizarProducto(Producto producto);
+        Task EliminarProducto(Guid id);
 
     }
 }

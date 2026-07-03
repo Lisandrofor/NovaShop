@@ -8,50 +8,113 @@ namespace NovaShop.Repositories
 {
     public class ProductoRepository : IProductosRepository
     {
-        public readonly DatabaseInitializer _databaseInitializer;
-        // GET ALL 
+        private readonly DbConnection _connection;
 
-        public async Task<IEnumerable<Producto>> GetAllAsync()
+        public ProductoRepository(
+             DbConnection connection)
+        {
+            _connection = connection;
+        }
+
+        public async Task<IEnumerable<Producto>> ObtenerProductos()
 
         {
 
-            using var conn = CreateConnection();
+            using var connection = _connection.CreateConnection();
 
-            return await conn.QueryAsync<Producto>(""" 
+            string sql = """
+                        SELECT *
+                        FROM Productos
+                        """;
 
-        SELECT id, name, description, price, stock, 
-
-               created_at AS CreatedAt, updated_at AS UpdatedAt 
-
-        FROM items ORDER BY id DESC 
-
-    """);
+            return await connection
+                .QueryAsync<Producto>(sql);
 
         }
 
-
-
-        // CREATE 
-
-        public async Task<Item> CreateAsync(CreateItemRequest request)
-
+        public async Task GuardarProducto(Producto producto)
         {
+            using var connection =
+                _connection.CreateConnection();
 
-            using var conn = CreateConnection();
+            string sql = """
+                INSERT INTO Productos
+                (
+                    Id,
+                    Descripcion,
+                    CreatedAt,
+                    Stock,
+                    Precio,
+                    Categoria
+                )
+                VALUES
+                (
+                    @Id,
+                    @Descripcion,
+                    @CreateAT,
+                    @Stock,
+                    @Precio,
+                    @Categoria,
+                    @CreatedAt
+                    
+                )
+            """;
 
-            var id = await conn.ExecuteScalarAsync<int>(""" 
+            await connection.ExecuteAsync(sql, producto);
+        }
 
-        INSERT INTO items (name, description, price, stock) 
+        public async Task<Producto?> ObtenerProductoId(Guid id)
+        {
+            using var connection =
+                _connection.CreateConnection();
 
-        VALUES (@Name, @Description, @Price, @Stock); 
+            string sql = """
+                SELECT *
+                FROM Productos
+                WHERE Id = @Id
+            """;
 
-        SELECT last_insert_rowid(); 
-
-    """, request);
-
-            return (await GetByIdAsync(id))!;
+            return await connection
+                .QueryFirstOrDefaultAsync<Producto>(
+                    sql,
+                    new { Id = id }
+                );
 
         }
+
+        public async Task<bool> ActualizarProducto(Producto producto)
+        {
+            using var connection = _connection.CreateConnection();
+
+            string sql = """
+        UPDATE Productos
+        SET
+            Descripcion = @descripcion,
+            precio = @precio,
+            Stock = @Stock
+        WHERE Id = @Id
+    """;
+
+            int filasAfectadas = await connection.ExecuteAsync(sql, producto);
+
+            return filasAfectadas > 0;
+        }
+
+        public async Task EliminarProducto(Guid id)
+        {
+            using var connection =
+                _connection.CreateConnection();
+
+            string sql = """
+                SELECT *
+                DELETE Productos
+                WHERE Id = @Id
+            """;
+
+            await connection.ExecuteAsync(sql, new { Id = id });
+        }
+
+
 
     }
-}
+  }

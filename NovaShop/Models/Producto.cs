@@ -11,5 +11,12 @@
       public int Categoría {get; set;}
     }
 
+   public record CreateProductRequest(
+   string Descripcion,
+   int Stock,
+   decimal Precio,
+   string Categoria);
+  
+
 
 }
