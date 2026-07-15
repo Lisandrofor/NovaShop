@@ -8,8 +8,10 @@ namespace NovaShop.Interfaces.Repositorios
 
         Task<IEnumerable<Producto>> ObtenerProductos();
 
+        Task<bool> ExisteProducto(long id);
+
         Task GuardarProducto(Producto producto);
-        Task<Producto?> ObtenerProductoId(Guid id);
+        Task<Producto?> ObtenerProductoId(long id);
         Task<bool> ActualizarProducto(Producto producto);
         Task EliminarProducto(Guid id);
 

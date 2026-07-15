@@ -5,7 +5,7 @@ namespace NovaShop.Extensions
 {
     public static class EndpointsProductos 
     { static
-        public void MapItemEndpoints(this WebApplication app)
+        public void MapProductosEndpoints(this WebApplication app)
         {
            
             var idCounter = 1L;
@@ -36,10 +36,10 @@ namespace NovaShop.Extensions
                     Descripcion = req.Descripcion,
                     Stock = req.Stock,
                     Precio = req.Precio,
-                    CreatedAt = DateTime.UtcNow.ToString("o")
+                    
                 };
 
-                items.Add(producto);
+                await service.CrearProductos(producto);
 
                 return Results.Ok(producto);
             })

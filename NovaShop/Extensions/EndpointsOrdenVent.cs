@@ -4,7 +4,7 @@ namespace NovaShop.Extensions
 {
     public static class EndpointsOrdenVent 
     { static
-        public void MapItemEndpoints(this WebApplication app)
+        public void MapOrdenesEndpoints(this WebApplication app)
         {
             var ordenes = new List<OrdenVentas>();
             var idCounter = 1L;

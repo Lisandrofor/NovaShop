@@ -63,7 +63,7 @@ namespace NovaShop.Repositories
             await connection.ExecuteAsync(sql, producto);
         }
 
-        public async Task<Producto?> ObtenerProductoId(Guid id)
+        public async Task<Producto?> ObtenerProductoId(long id)
         {
             using var connection =
                 _connection.CreateConnection();
@@ -81,6 +81,18 @@ namespace NovaShop.Repositories
                 );
 
         }
+        public async Task<bool> ExisteProducto(long id)
+        {
+            using var connection = _connection.CreateConnection();
+            string sql = """
+                SELECT COUNT(1)
+                FROM Productos
+                WHERE Id = @Id
+            """;
+            int count = await connection.ExecuteScalarAsync<int>(sql, new { Id = id });
+            return count > 0;
+        }
+
 
         public async Task<bool> ActualizarProducto(Producto producto)
         {

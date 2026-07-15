@@ -1,4 +1,8 @@
-﻿using NovaShop.Models;
+﻿
+using NovaShop.Interfaces.Repositorios;
+using NovaShop.Interfaces.Services;
+using NovaShop.Models;
+
 
 namespace NovaShop.Extensions
 {
@@ -6,11 +10,11 @@ namespace NovaShop.Extensions
     { static
         public void MapItemEndpoints(this WebApplication app)
         {
-            var itemsCarrito = new List<ItemsCarrito>();
+            
             var idCounter = 1L;
 
             // GET all
-            app.MapGet("/itemscarrito", () =>
+            app.MapGet("/itemscarrito",async (ICarritoRepository repo) =>
             {
                 return Results.Ok(itemscarrito);
             })
