@@ -20,6 +20,8 @@ public partial class Program
         builder.Services.AddScoped<DatabaseInitializer>();
 
         builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+        builder.Services.AddScoped<IProductosRepository, ProductoRepository>();
+        builder.Services.AddScoped<ICarritoRepository,>();
 
         builder.AddAppLogging();
 
