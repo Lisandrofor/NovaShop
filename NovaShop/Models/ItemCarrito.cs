@@ -2,13 +2,24 @@ namespace NovaShop.Models
 {
     public record ItemCarrito
     {
-        public Guid IdProducto { get; set; }
+        
+        public long IdItemCarrito { get; set; }
+        public long IdProducto { get; set; }
+
+        public long IdCarrito { get; set; }
 
         public Producto Producto { get; set; } = new();
 
         public int Cantidad { get; set; }
 
         // Precio total de ESTE producto
-        public decimal Total => Producto.Precio * Cantidad;
+        public decimal SubTotal => Producto.Precio * Cantidad;
+
+        public record CreateItemRequest(
+        Producto producto,
+        int Cantidad,
+        decimal Subtotal
+        );
+
     }
 }

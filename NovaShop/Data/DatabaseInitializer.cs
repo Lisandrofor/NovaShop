@@ -21,7 +21,7 @@ namespace NovaShop.Data
 
             connection.Execute("""
                 CREATE TABLE IF NOT EXISTS Usuario (
-                    Id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Id          BIGINT PRIMARY KEY AUTOINCREMENT,
                     Nombre      TEXT NOT NULL,
                     Apellido    TEXT NOT NULL,
                     Dni         INTEGER NOT NULL,
@@ -31,7 +31,7 @@ namespace NovaShop.Data
                     UpdatedAt   TEXT
                 );
                 CREATE TABLE IF NOT EXISTS Producto (
-                    Id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Id          BIGINT PRIMARY KEY AUTOINCREMENT,
                     Descripcion      TEXT NOT NULL,
                     Stock         INTEGER NOT NULL,
                     Precio       DECIMAL NOT NULL,
@@ -39,10 +39,10 @@ namespace NovaShop.Data
                     UpdatedAt   TEXT
                 );
             CREATE TABLE IF NOT EXISTS  ItemVentas(
-                    Id               INTEGER PRIMARY KEY AUTOINCREMENT,
-                    IdUsuario        INTEGER ,
-                    IdProducto       INTEGER ,
-                    IdOrdenVenta      INTEGER ,
+                    Id               BIGINT PRIMARY KEY AUTOINCREMENT,
+                    IdUsuario        BIGINT ,
+                    IdProducto       BIGINT ,
+                    IdOrdenVenta      BIGINT ,
                     Cantidad         INTEGER NOT NULL,
                     PrecioUnitario   DECIMAL NOT NULL,
                     EstadoOrden      TEXT NOT NULL,
@@ -52,8 +52,8 @@ namespace NovaShop.Data
                     REFERENCES OrdenVentas(Id)
                 );
             CREATE TABLE IF NOT EXISTS ItemCarrito (
-                    Id          INTEGER PRIMARY KEY AUTOINCREMENT,
-                    IdProducto  INTEGER NOT NULL,
+                    Id          BIGINT PRIMARY KEY AUTOINCREMENT,
+                    IdProducto  BIGINT NOT NULL,
                     Cantidad    INTEGER NOT NULL,
                     Total       DECIMAL NOT NULL,
                     CreatedAt   TEXT NOT NULL,
@@ -62,8 +62,8 @@ namespace NovaShop.Data
                     REFERENCES Producto(Id)
                 );
             CREATE TABLE IF NOT EXISTS Notificaciones (
-                    Id          INTEGER PRIMARY KEY AUTOINCREMENT,
-                    IdUsuario   INTEGER NOT NULL,
+                    Id          BIGINT PRIMARY KEY AUTOINCREMENT,
+                    IdUsuario   BIGINT NOT NULL,
                     Mensaje     TEXT NOT NULL,
                     IdTipo      INTEGER NOT NULL,
                     Enviada     BOOLEAN NOT NULL,
@@ -74,8 +74,8 @@ namespace NovaShop.Data
 
                 );
             CREATE TABLE IF NOT EXISTS OrdenVentas (
-                    Id          INTEGER PRIMARY KEY AUTOINCREMENT,
-                    IdUusario      TEXT NOT NULL,
+                    Id          BIGINT PRIMARY KEY AUTOINCREMENT,
+                    IdUusario      BIGINT NOT NULL,
                     IdEstado    INTEGER NOT NULL,
                     Total       DECIMAL NOT NULL,
                     CreatedAt   TEXT NOT NULL,
@@ -87,9 +87,9 @@ namespace NovaShop.Data
                     REFERENCES EstadoId(Id)
                 );
             CREATE TABLE IF NOT EXISTS Carrito (
-                    Id          INTEGER PRIMARY KEY AUTOINCREMENT,
-                    IdUsuario      TEXT NOT NULL,
-                    IdItemCarrito  INTEGER NOT NULL,
+                    Id          BIGINT PRIMARY KEY AUTOINCREMENT,
+                    IdUsuario      BIGINT NOT NULL,
+                    IdItemCarrito  BIGINT NOT NULL,
                     Subtotal       DECIMAL NOT NULL,
                     CantidadTotal  INTEGER NOT NULL,
                     CreatedAt   TEXT NOT NULL,

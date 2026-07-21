@@ -16,27 +16,29 @@ namespace NovaShop.Extensions
             // GET all
             app.MapGet("/itemscarrito",async (ICarritoRepository repo) =>
             {
+                var itemscarrito = await repo.ObtenerCarritos();
                 return Results.Ok(itemscarrito);
             })
 .WithTags("ItemsCarrito");
 
             // GET by id
-            app.MapGet("/itemscarrito/{id}", (long id) =>
+            app.MapGet("/itemscarrito/{id}", async (long id, ICarritoRepository repo) =>
             {
-                var item = itemscarrito.FirstOrDefault(i => i.Id == id);
-                return item is not null ? Results.Ok(producto) : Results.NotFound();
+                var itemscarrito = await repo.ObtenerCarritos();
+                var items = itemscarrito.FirstOrDefault(i => i.IdCarrito == id);
+                return items is not null ? Results.Ok(items) : Results.NotFound();
             })
-.WithTags("Productos");
+.WithTags("ItemsCarrito");
 
             // POST
-            app.MapPost("/productos", (CreateItemRequest req) =>
+            app.MapPost("/itemCarrito", (CreateItemRequest req) =>
             {
-                var producto = new Productos
+                var itemCarrito = new ItemCarrito
                 {
                     Id = idCounter++,
-                    Name = req.Name,
-                    Description = req.Description,
-                    Price = (double)req.Price,
+                    producto = req.producto,
+                    Cantidad = req.,
+                    Subtotal = (double)req,
                     Stock = req.Stock,
                     CreatedAt = DateTime.UtcNow.ToString("o")
                 };

@@ -31,5 +31,31 @@ namespace NovaShop.Repositories
                 .QueryAsync<Carrito>(sql);
 
         }
+
+        public async Task GuardarCarrito(Carrito carrito)
+        {
+            using var connection =
+                _connection.CreateConnection();
+
+            string sql = """
+                INSERT INTO Carritos
+                (
+                    IdCarrito,
+                    IdUsuario,
+                    Items
+                    
+                )
+                VALUES
+                (
+                    @IdCarrito,
+                    @IdUsuario,
+                    @Items
+                    
+                    
+                )
+            """;
+
+            await connection.ExecuteAsync(sql, carrito);
+        }
     }
 }

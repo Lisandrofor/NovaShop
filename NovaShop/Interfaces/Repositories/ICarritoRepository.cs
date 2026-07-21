@@ -10,6 +10,6 @@ namespace NovaShop.Interfaces.Repositorios
 
         Task<bool> ExisteCarrito(long id);
 
-        Task GuardarProducto(Carrito carrito);
+        Task GuardarCarrito(Carrito carrito);
     }
 }
