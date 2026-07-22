@@ -50,19 +50,19 @@ namespace NovaShop.Extensions
 .WithTags("ItemCarrito");
 
             // PUT
-            app.MapPut("/productos/{id}", (long id, UpdateItemRequest req) =>
+            app.MapPut("/itemCarrito/{id}", (long id, UpdateItemRequest req) =>
             {
-                var existing = usuarios.FirstOrDefault(i => i.Id == id);
+                var itemsCarrito= await repo.ObtenerCarritos();
+                var existing = itemsCarrito.FirstOrDefault(i => i.Id == id);
 
                 if (existing is null)
                     return Results.NotFound();
 
                 var updated = existing with
                 {
-                    Name = req.Name,
-                    Description = req.Description,
-                    Price = (double)req.Price,
-                    Stock = req.Stock,
+                    IdProducto=req.idProducto,
+                    Cantidad= req.cantidad,
+                    Producto= producto 
                     UpdatedAt = DateTime.UtcNow.ToString("o")
                 };
 
