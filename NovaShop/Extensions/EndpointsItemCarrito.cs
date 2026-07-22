@@ -47,7 +47,7 @@ namespace NovaShop.Extensions
 
                 return Results.Ok(itemCarrito);
             })
-.WithTags("Productos");
+.WithTags("ItemCarrito");
 
             // PUT
             app.MapPut("/productos/{id}", (long id, UpdateItemRequest req) =>
