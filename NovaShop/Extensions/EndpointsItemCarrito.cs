@@ -1,4 +1,4 @@
-﻿
+
 using NovaShop.Interfaces.Repositorios;
 using NovaShop.Interfaces.Services;
 using NovaShop.Models;
@@ -39,13 +39,12 @@ namespace NovaShop.Extensions
                     producto = req.producto,
                     Cantidad = req.,
                     Subtotal = (double)req,
-                    Stock = req.Stock,
                     CreatedAt = DateTime.UtcNow.ToString("o")
                 };
 
-                items.Add(producto);
+                items.Add(itemCarrito);
 
-                return Results.Ok(producto);
+                return Results.Ok(itemCarrito);
             })
 .WithTags("Productos");
 
