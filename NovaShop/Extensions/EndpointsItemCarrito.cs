@@ -71,21 +71,22 @@ namespace NovaShop.Extensions
 
                 return Results.Ok(updated);
             })
-.WithTags("Productos");
+.WithTags("ItemCarrito");
 
             // DELETE
-            app.MapDelete("/productos/{id}", (long id) =>
+            app.MapDelete("/itemCarrito/{id}", (long id) =>
             {
-                var producto = productos.FirstOrDefault(i => i.Id == id);
+                var itemsCarrito= await repo.ObtenerCarritos();
+                var carrito = itemsCarrito.FirstOrDefault(i => i.Id == id);
 
-                if (producto is null)
+                if (carrito is null)
                     return Results.NotFound();
 
-                productos.Remove(producto);
+                itemsCarrito.Remove(carrito);
 
                 return Results.Ok();
             })
-.WithTags("Productos");
+.WithTags("ItemsCarrito");
         }
 
 
