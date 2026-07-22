@@ -36,9 +36,10 @@ namespace NovaShop.Extensions
                 var itemCarrito = new ItemCarrito
                 {
                     Id = idCounter++,
-                    producto = req.producto,
-                    Cantidad = req.,
-                    Subtotal = (double)req,
+                    IdProducto = req.idProducto,
+                    IdCarrito= req.IdCarrito,
+                    Cantidad = req.Cantidad,
+                    Producto = producto, 
                     CreatedAt = DateTime.UtcNow.ToString("o")
                 };
 
