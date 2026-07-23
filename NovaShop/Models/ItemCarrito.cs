@@ -2,7 +2,7 @@ namespace NovaShop.Models
 {
     public record ItemCarrito
     {
-        
+
         public long IdItemCarrito { get; set; }
         public long IdProducto { get; set; }
 
@@ -15,12 +15,11 @@ namespace NovaShop.Models
         // Precio total de ESTE producto
         public decimal SubTotal => Producto.Precio * Cantidad;
 
-        public record CreateItemRequest(
-        long Idproducto,
-        long IdCarrito,
-        int Cantidad
-        
-        );
-
     }
-}
+
+        public record CreateItemRequest(
+        long IdProducto,
+        long IdCarrito,
+        int Cantidad);
+
+ }

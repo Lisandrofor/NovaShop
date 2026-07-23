@@ -1,4 +1,3 @@
-
 using NovaShop.Interfaces.Repositorios;
 using NovaShop.Interfaces.Services;
 using NovaShop.Models;
@@ -31,15 +30,21 @@ namespace NovaShop.Extensions
 .WithTags("ItemsCarrito");
 
             // POST
-            app.MapPost("/itemCarrito", (CreateItemRequest req) =>
+            app.MapPost("/itemCarrito",async (CreateItemRequest req, Producto produ, ICarritoRepository repo) =>
             {
+                var carrito = await repo.ObtenerPorId(req.IdCarrito);
+
+                if (carrito == null)
+                    return Results.NotFound("Carrito no encontrado.");
+
+
                 var itemCarrito = new ItemCarrito
                 {
-                    Id = idCounter++,
-                    IdProducto = req.idProducto,
-                    IdCarrito= req.IdCarrito,
+                    
+                    IdProducto = req.IdProducto,
+                    IdCarrito = req.IdCarrito,
                     Cantidad = req.Cantidad,
-                    Producto = producto, 
+                    Producto = produ,
                     CreatedAt = DateTime.UtcNow.ToString("o")
                 };
 
