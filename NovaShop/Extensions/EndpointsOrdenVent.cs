@@ -1,4 +1,4 @@
-﻿using NovaShop.Models;
+using NovaShop.Models;
 
 namespace NovaShop.Extensions
 {
@@ -43,29 +43,6 @@ namespace NovaShop.Extensions
             })
 .WithTags("Productos");
 
-            // PUT
-            app.MapPut("/productos/{id}", (long id, UpdateItemRequest req) =>
-            {
-                var existing = usuarios.FirstOrDefault(i => i.Id == id);
-
-                if (existing is null)
-                    return Results.NotFound();
-
-                var updated = existing with
-                {
-                    Name = req.Name,
-                    Description = req.Description,
-                    Price = (double)req.Price,
-                    Stock = req.Stock,
-                    UpdatedAt = DateTime.UtcNow.ToString("o")
-                };
-
-                items.Remove(existing);
-                items.Add(updated);
-
-                return Results.Ok(updated);
-            })
-.WithTags("Productos");
 
             // DELETE
             app.MapDelete("/productos/{id}", (long id) =>
