@@ -8,8 +8,14 @@ namespace NovaShop.Interfaces.Repositorios
 
         Task<IEnumerable<Carrito>> ObtenerCarritos();
 
+        Task<Carrito?> ObtenerPorId(long id);
+
         Task<bool> ExisteCarrito(long id);
 
         Task GuardarCarrito(Carrito carrito);
+
+        Task ActualizarItemCarrito(long idItemCarrito, UpdateItemRequest item);
+
+        Task<bool> EliminarItemCarrito(long idItemCarrito);
     }
 }

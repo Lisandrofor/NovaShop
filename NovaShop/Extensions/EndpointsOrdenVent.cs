@@ -6,8 +6,8 @@ namespace NovaShop.Extensions
     { static
         public void MapOrdenesEndpoints(this WebApplication app)
         {
-            var ordenes = new List<OrdenVentas>();
-            var idCounter = 1L;
+            
+           
 
             // GET all
             app.MapGet("/ordenesventas", () =>
@@ -29,7 +29,7 @@ namespace NovaShop.Extensions
             {
                 var producto = new Productos
                 {
-                    Id = idCounter++,
+                    
                     Name = req.Name,
                     Description = req.Description,
                     Price = (double)req.Price,

@@ -21,5 +21,11 @@ namespace NovaShop.Models
         long IdProducto,
         long IdCarrito,
         int Cantidad);
+    
+    
+    public record UpdateItemRequest(
+        long IdProducto,
+        long IdCarrito,
+        int Cantidad);
 
- }
+}

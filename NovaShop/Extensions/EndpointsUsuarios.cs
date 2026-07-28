@@ -12,7 +12,7 @@ namespace NovaShop.Extensions
         public void MapUserEndpoints(this WebApplication app)
         {
 
-            var idCounter = 1L;
+           
 
             // GET all
             app.MapGet("/usuarios", async (IUsuarioRepository repo) =>

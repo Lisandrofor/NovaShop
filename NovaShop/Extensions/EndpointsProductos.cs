@@ -8,7 +8,7 @@ namespace NovaShop.Extensions
         public void MapProductosEndpoints(this WebApplication app)
         {
            
-            var idCounter = 1L;
+            
 
             // GET all
             app.MapGet("/productos", async(IProductosRepository repo) =>

@@ -10,7 +10,7 @@ namespace NovaShop.Extensions
         public void MapItemEndpoints(this WebApplication app)
         {
             
-            var idCounter = 1L;
+           
 
             // GET all
             app.MapGet("/itemscarrito",async (ICarritoRepository repo) =>
@@ -48,46 +48,44 @@ namespace NovaShop.Extensions
                     CreatedAt = DateTime.UtcNow.ToString("o")
                 };
 
-                items.Add(itemCarrito);
+                carrito.Items.Add(itemCarrito);
 
                 return Results.Ok(itemCarrito);
             })
 .WithTags("ItemCarrito");
 
             // PUT
-            app.MapPut("/itemCarrito/{id}", (long id, UpdateItemRequest req) =>
-            {
-                var itemsCarrito= await repo.ObtenerCarritos();
-                var existing = itemsCarrito.FirstOrDefault(i => i.Id == id);
+           app.MapPut("/carritos/{idCarrito}/items/{idItem}", async (long idCarrito,long idItem,UpdateItemRequest request,ICarritoRepository repo) =>
+ {
+     var carrito = await repo.ObtenerPorId(idCarrito);
 
-                if (existing is null)
-                    return Results.NotFound();
+     if (carrito is null)
+         return Results.NotFound("Carrito no encontrado.");
 
-                var updated = existing with
-                {
-                    IdProducto=req.idProducto,
-                    Cantidad= req.cantidad,
-                    Producto= producto 
-                    UpdatedAt = DateTime.UtcNow.ToString("o")
-                };
+     var item = carrito.Items.FirstOrDefault(i => i.IdItemCarrito == idItem);
 
-                items.Remove(existing);
-                items.Add(updated);
+     if (item is null)
+         return Results.NotFound("Item no encontrado.");
 
-                return Results.Ok(updated);
-            })
-.WithTags("ItemCarrito");
+     await repo.ActualizarItemCarrito(idItem, request);
+
+     return Results.NoContent();
+ });
 
             // DELETE
-            app.MapDelete("/itemCarrito/{id}", (long id) =>
+            app.MapDelete("/itemCarrito/{id}", async (long id, ICarritoRepository repo) =>
             {
-                var itemsCarrito= await repo.ObtenerCarritos();
-                var carrito = itemsCarrito.FirstOrDefault(i => i.Id == id);
+                var carrito= await repo.ObtenerPorId(id);
+
+                if (carrito is null)
+                    return Results.NotFound("Carrito no encontrado.");
+                
+                var item = carrito.Items.FirstOrDefault(i => i.IdItemCarrito == id);
 
                 if (carrito is null)
                     return Results.NotFound();
 
-                itemsCarrito.Remove(carrito);
+                await repo.EliminarItemCarrito(id);
 
                 return Results.Ok();
             })

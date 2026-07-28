@@ -24,7 +24,7 @@ namespace NovaShop.Repositories
 
             string sql = """
                         SELECT *
-                        FROM Carritos
+                        FROM Carrito
                         """;
 
             return await connection
@@ -38,7 +38,7 @@ namespace NovaShop.Repositories
                 _connection.CreateConnection();
 
             string sql = """
-                INSERT INTO Carritos
+                INSERT INTO Carrito
                 (
                     IdCarrito,
                     IdUsuario,
@@ -56,6 +56,70 @@ namespace NovaShop.Repositories
             """;
 
             await connection.ExecuteAsync(sql, carrito);
+        }
+
+        public async Task<Carrito?> ObtenerPorId(long id)
+        {
+            using var connection =
+                _connection.CreateConnection();
+
+            string sql = """
+                SELECT *
+                FROM Carrito
+                WHERE Id = @Id
+            """;
+
+            return await connection
+                .QueryFirstOrDefaultAsync<Carrito>(
+                    sql,
+                    new { Id = id }
+                );
+
+        }
+
+        public async Task<bool> ExisteCarrito(long id)
+        {
+            using var connection = _connection.CreateConnection();
+            string sql = """
+                SELECT COUNT(1)
+                FROM Carrito
+                WHERE Id = @Id
+            """;
+            int count = await connection.ExecuteScalarAsync<int>(sql, new { Id = id });
+            return count > 0;
+        }
+
+        public async Task ActualizarItemCarrito(long idItemCarrito, UpdateItemRequest request)
+        {
+            using var connection = _connection.CreateConnection();
+
+            var sql = """
+                UPDATE ItemsCarrito
+                SET IdProducto = @IdProducto,
+                Cantidad = @Cantidad
+        WHERE IdItemCarrito = @IdItemCarrito
+        """;
+
+            await connection.ExecuteAsync(sql, new
+            {
+                IdItemCarrito = idItemCarrito,
+                request.IdProducto,
+                request.Cantidad
+            });
+        }
+
+        public async Task EliminarItemCarrito(long id)
+        {
+            using var connection =
+                _connection.CreateConnection();
+
+            string sql = """
+                SELECT *
+                DELETE ItemCarrito
+                WHERE Id = @IdItemCarrito
+            """;
+
+            await connection.ExecuteAsync(sql, new { Id = id });
         }
     }
 }
