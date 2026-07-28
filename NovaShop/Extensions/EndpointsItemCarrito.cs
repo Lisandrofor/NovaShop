@@ -48,9 +48,12 @@ namespace NovaShop.Extensions
                     CreatedAt = DateTime.UtcNow.ToString("o")
                 };
 
-                carrito.Items.Add(itemCarrito);
 
-                return Results.Ok(itemCarrito);
+                await repo.AgregarItemCarrito(itemCarrito);
+
+                return Results.Created($"/itemCarrito/{itemCarrito.IdItemCarrito}", itemCarrito);
+
+               
             })
 .WithTags("ItemCarrito");
 

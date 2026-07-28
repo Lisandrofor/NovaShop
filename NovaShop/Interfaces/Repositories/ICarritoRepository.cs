@@ -16,6 +16,8 @@ namespace NovaShop.Interfaces.Repositorios
 
         Task ActualizarItemCarrito(long idItemCarrito, UpdateItemRequest item);
 
-        Task<bool> EliminarItemCarrito(long idItemCarrito);
+        Task EliminarItemCarrito(long idItemCarrito);
+
+        Task AgregarItemCarrito(ItemCarrito item);
     }
 }

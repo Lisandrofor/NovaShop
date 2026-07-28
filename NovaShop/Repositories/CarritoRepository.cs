@@ -57,6 +57,22 @@ namespace NovaShop.Repositories
 
             await connection.ExecuteAsync(sql, carrito);
         }
+        public async Task AgregarItemCarrito(ItemCarrito item)
+        {
+            using var connection = _connection.CreateConnection();
+
+            var sql = @"
+        INSERT INTO ItemCarrito
+        (IdCarrito, IdProducto, Cantidad)
+        VALUES
+        (@IdCarrito, @IdProducto, @Cantidad);";
+
+            await connection.ExecuteAsync(sql, item);
+        }
+
+
+
+
 
         public async Task<Carrito?> ObtenerPorId(long id)
         {
@@ -94,7 +110,7 @@ namespace NovaShop.Repositories
             using var connection = _connection.CreateConnection();
 
             var sql = """
-                UPDATE ItemsCarrito
+                UPDATE ItemCarrito
                 SET IdProducto = @IdProducto,
                 Cantidad = @Cantidad
         WHERE IdItemCarrito = @IdItemCarrito
