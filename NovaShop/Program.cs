@@ -59,7 +59,7 @@ public partial class Program
 
         // Endpoints
         app.MapUserEndpoints();
-        app.Map app.MapProductosEndpoints();
+        app.MapEndpoints(); app.MapProductosEndpoints();
         app.MapItemEndpoints();
         app.MapOrdenesEndpoints();
 
