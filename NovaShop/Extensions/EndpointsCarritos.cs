@@ -5,29 +5,29 @@ using NovaShop.Models;
 
 namespace NovaShop.Extensions
 {
-    public static class EndpointsItemCarrito 
+    public static class EndpointsCarrito 
     { static
-        public void MapItemEndpoints(this WebApplication app)
+        public void MapEndpoints(this WebApplication app)
         {
 
 
 
             // GET all
-            app.MapGet("/itemscarrito",async (ICarritoRepository repo) =>
+            app.MapGet("/carrito",async (ICarritoRepository repo) =>
             {
-                var itemscarrito = await repo.ObtenerCarritos();
-                return Results.Ok(itemscarrito);
+                var carrito = await repo.ObtenerCarritos();
+                return Results.Ok(carrito);
             })
-.WithTags("ItemsCarrito");
+.WithTags("Carrito");
 
             // GET by id
-            app.MapGet("/itemscarrito/{id}", async (long id, ICarritoRepository repo) =>
+            app.MapGet("/carrito/{id}", async (long id, ICarritoRepository repo) =>
             {
-                var itemscarrito = await repo.ObtenerCarritos();
-                var items = itemscarrito.FirstOrDefault(i => i.IdCarrito == id);
-                return items is not null ? Results.Ok(items) : Results.NotFound();
+                var carritos = await repo.ObtenerCarritos();
+                var carrito= carritos.FirstOrDefault(i => i.IdCarrito == id);
+                return carritos is not null ? Results.Ok(carritos) : Results.NotFound();
             })
-.WithTags("ItemsCarrito");
+.WithTags("Carritos");
 
             // POST
             app.MapPost("/itemCarrito",async (CreateItemRequest req, Producto produ, ICarritoRepository repo) =>
