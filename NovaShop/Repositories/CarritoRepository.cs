@@ -137,5 +137,18 @@ namespace NovaShop.Repositories
 
             await connection.ExecuteAsync(sql, new { Id = id });
         }
+
+public async Task AgregarCarrito(Carrito carro)
+        {
+            using var connection = _connection.CreateConnection();
+
+            var sql = @"
+        INSERT INTO Carrito
+        (IdCarrito, IdProducto, Cantidad)
+        VALUES
+        (@IdCarrito, @IdProducto, @Cantidad);";
+
+            await connection.ExecuteAsync(sql, item);
+        }
     }
 }
