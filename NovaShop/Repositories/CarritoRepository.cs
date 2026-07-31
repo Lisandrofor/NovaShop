@@ -144,11 +144,11 @@ public async Task AgregarCarrito(Carrito carro)
 
             var sql = @"
         INSERT INTO Carrito
-        (IdCarrito, IdProducto, Cantidad)
+        (IdCarrito, IdUsuario,FechaAgregado)
         VALUES
-        (@IdCarrito, @IdProducto, @Cantidad);";
+        (@IdCarrito, @IdUsuario, @FechaAgregado);";
 
-            await connection.ExecuteAsync(sql, item);
+            await connection.ExecuteAsync(sql,carro);
         }
     }
 }
