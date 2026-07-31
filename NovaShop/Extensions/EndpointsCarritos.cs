@@ -13,12 +13,12 @@ namespace NovaShop.Extensions
 
 
             // GET all
-            app.MapGet("/carrito",async (ICarritoRepository repo) =>
+            app.MapGet("/carritos",async (ICarritoRepository repo) =>
             {
-                var carrito = await repo.ObtenerCarritos();
-                return Results.Ok(carrito);
+                var carritos = await repo.ObtenerCarritos();
+                return Results.Ok(carritos);
             })
-.WithTags("Carrito");
+.WithTags("Carritos");
 
             // GET by id
             app.MapGet("/carrito/{id}", async (long id, ICarritoRepository repo) =>
@@ -30,35 +30,27 @@ namespace NovaShop.Extensions
 .WithTags("Carritos");
 
             // POST
-            app.MapPost("/itemCarrito",async (CreateItemRequest req, Producto produ, ICarritoRepository repo) =>
+            app.MapPost("/Carrito", async (
+    CreateCarritoRequest req,
+    ICarritoRepository repo) =>
             {
-                var carrito = await repo.ObtenerPorId(req.IdCarrito);
-
-                if (carrito == null)
-                    return Results.NotFound("Carrito no encontrado.");
-
-
-                var itemCarrito = new ItemCarrito
+                var carrito = new Carrito
                 {
-
-                    IdProducto = req.IdProducto,
-                    IdCarrito = req.IdCarrito,
-                    Cantidad = req.Cantidad,
-                    Producto = produ,
-                    CreatedAt = DateTime.UtcNow.ToString("o")
+                    IdUsuario = req.IdUsuario,
+                    FechaAgregado = DateTime.Now
                 };
 
+                await repo.AgregarCarrito(carrito);
 
-                await repo.AgregarItemCarrito(itemCarrito);
-
-                return Results.Created($"/itemCarrito/{itemCarrito.IdItemCarrito}", itemCarrito);
-
-
+                return Results.Created(
+                    $"/Carrito/{carrito.IdCarrito}",
+                    carrito
+                );
             })
-.WithTags("ItemCarrito");
+.WithTags("Carrito");
 
             // PUT
-           app.MapPut("/carritos/{idCarrito}/items/{idItem}", async (long idCarrito,long idItem,UpdateItemRequest request,ICarritoRepository repo) =>
+            app.MapPut("/carritos/{idCarrito}/items/{idItem}", async (long idCarrito,long idItem,UpdateItemRequest request,ICarritoRepository repo) =>
  {
      var carrito = await repo.ObtenerPorId(idCarrito);
 

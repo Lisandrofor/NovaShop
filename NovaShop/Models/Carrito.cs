@@ -16,4 +16,11 @@
         // Cantidad total de productos
         public int CantidadTotal => Items.Sum(i => i.Cantidad);
     }
+
+    public record CreateCarritoRequest(
+        long IdUsuario,
+        long IdCarrito,
+        List<ItemCarrito> items,
+        DateTime FechaAgregado);
+
 }

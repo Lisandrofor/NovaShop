@@ -19,5 +19,7 @@ namespace NovaShop.Interfaces.Repositorios
         Task EliminarItemCarrito(long idItemCarrito);
 
         Task AgregarItemCarrito(ItemCarrito item);
+
+        Task AgregarCarrito(Carrito carrito);
     }
 }
