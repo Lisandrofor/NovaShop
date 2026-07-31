@@ -12,6 +12,8 @@ namespace NovaShop.Models
 
         public int Cantidad { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
         // Precio total de ESTE producto
         public decimal SubTotal => Producto.Precio * Cantidad;
 
