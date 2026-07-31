@@ -5,15 +5,16 @@ using NovaShop.Models;
 
 namespace NovaShop.Extensions
 {
-    public static class EndpointsCarrito 
-    { static
+    public static class EndpointsCarrito
+    {
+        static
         public void MapEndpoints(this WebApplication app)
         {
 
 
 
             // GET all
-            app.MapGet("/carritos",async (ICarritoRepository repo) =>
+            app.MapGet("/carritos", async (ICarritoRepository repo) =>
             {
                 var carritos = await repo.ObtenerCarritos();
                 return Results.Ok(carritos);
@@ -24,7 +25,7 @@ namespace NovaShop.Extensions
             app.MapGet("/carrito/{id}", async (long id, ICarritoRepository repo) =>
             {
                 var carritos = await repo.ObtenerCarritos();
-                var carrito= carritos.FirstOrDefault(i => i.IdCarrito == id);
+                var carrito = carritos.FirstOrDefault(i => i.IdCarrito == id);
                 return carritos is not null ? Results.Ok(carritos) : Results.NotFound();
             })
 .WithTags("Carritos");
@@ -50,7 +51,7 @@ namespace NovaShop.Extensions
 .WithTags("Carrito");
 
             // PUT
-            app.MapPut("/carritos/{idCarrito}/items/{idItem}", async (long idCarrito,long idItem,UpdateItemRequest request,ICarritoRepository repo) =>
+            app.MapPut("/carritos/{idCarrito}/items/{idItem}", async (long idCarrito, long idItem, UpdateItemRequest request, ICarritoRepository repo) =>
  {
      var carrito = await repo.ObtenerPorId(idCarrito);
 
@@ -70,7 +71,7 @@ namespace NovaShop.Extensions
             // DELETE
             app.MapDelete("/itemCarrito/{id}", async (long id, ICarritoRepository repo) =>
             {
-                var carrito= await repo.ObtenerPorId(id);
+                var carrito = await repo.ObtenerPorId(id);
 
                 if (carrito is null)
                     return Results.NotFound("Carrito no encontrado.");
@@ -86,3 +87,5 @@ namespace NovaShop.Extensions
             })
 .WithTags("ItemsCarrito");
         }
+    }
+}
