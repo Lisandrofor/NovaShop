@@ -1,4 +1,4 @@
-using NovaShop.Interfaces.Repositorios;
+using NovaShop.Interfaces.Repositories;
 using NovaShop.Interfaces.Services;
 using NovaShop.Models;
 
@@ -14,7 +14,7 @@ namespace NovaShop.Extensions
 
 
             // GET all
-            app.MapGet("/ordenesCompra", async (ICompraRepository repo) =>
+            app.MapGet("/OrdenesCompra", async (ICompraRepository repo) =>
             {
                 var ordenComp = await repo.ObtenerOrdenesComp();
                 return Results.Ok(ordenComp);
@@ -24,68 +24,50 @@ namespace NovaShop.Extensions
             // GET by id
             app.MapGet("/OrdenComp/{id}", async (long id, ICompraRepository repo) =>
             {
-                var carritos = await repo.ObtenerCarritos();
-                var carrito = carritos.FirstOrDefault(i => i.IdCarrito == id);
-                return carritos is not null ? Results.Ok(carritos) : Results.NotFound();
+                var ordenesComp = await repo.ObtenerOrdenesComp();
+                var orden = ordenesComp.FirstOrDefault(i => i.IdOrdenCompra == id);
+                return orden is not null ? Results.Ok(orden) : Results.NotFound();
             })
-.WithTags("Carritos");
+.WithTags("Orden");
 
             // POST
-            app.MapPost("/Carrito", async (
-    CreateCarritoRequest req,
-    ICarritoRepository repo) =>
+            app.MapPost("/OrdenComp", async (
+    CreateOrdenRequest req,
+    ICompraRepository repo) =>
             {
-                var carrito = new Carrito
+                var orden = new OrdenCompras
                 {
                     IdUsuario = req.IdUsuario,
-                    FechaAgregado = DateTime.Now
+                    FechaCompra = DateTime.Now,
+                    Items=req.Items
                 };
 
-                await repo.AgregarCarrito(carrito);
+                await repo.AgregarOrdenes(orden);
 
                 return Results.Created(
-                    $"/Carrito/{carrito.IdCarrito}",
+                    $"/OrdenComp/{OrdenCompras.IdOrden}",
                     carrito
                 );
             })
-.WithTags("Carrito");
+.WithTags("OrdenCompras");
 
-            // PUT
-            app.MapPut("/carritos/{idCarrito}/items/{idItem}", async (long idCarrito, long idItem, UpdateItemRequest request, ICarritoRepository repo) =>
-            {
-                var carrito = await repo.ObtenerPorId(idCarrito);
-
-                if (carrito is null)
-                    return Results.NotFound("Carrito no encontrado.");
-
-                var item = carrito.Items.FirstOrDefault(i => i.IdItemCarrito == idItem);
-
-                if (item is null)
-                    return Results.NotFound("Item no encontrado.");
-
-                await repo.ActualizarItemCarrito(idItem, request);
-
-                return Results.NoContent();
-            });
+            
 
             // DELETE
-            app.MapDelete("/itemCarrito/{id}", async (long id, ICarritoRepository repo) =>
+            app.MapDelete("/OrdenComp/{id}", async (long id, ICompraRepository repo) =>
             {
-                var carrito = await repo.ObtenerPorId(id);
+                var orden = await repo.ObtenerOrdenPorId(id);
 
-                if (carrito is null)
-                    return Results.NotFound("Carrito no encontrado.");
+                if (orden is null)
+                    return Results.NotFound("Orden no encontrada.");
 
-                var item = carrito.Items.FirstOrDefault(i => i.IdItemCarrito == id);
+               
 
-                if (carrito is null)
-                    return Results.NotFound();
-
-                await repo.EliminarItemCarrito(id);
+                await repo.EliminarOrden(id);
 
                 return Results.Ok();
             })
-.WithTags("ItemsCarrito");
+.WithTags("OrdenComp");
         }
     }
 }

@@ -11,4 +11,10 @@
         // Cantidad total de productos en la orden de compra
         public int CantidadTotal => Items.Sum(i => i.Cantidad);
     }
+
+  public record CreateOrdenRequest(
+        long IdUsuario,
+        long IdOrdenCompra,
+        List<ItemCarrito> items,
+        DateTime FechaCompra);
 }
