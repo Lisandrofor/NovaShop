@@ -39,14 +39,14 @@ namespace NovaShop.Extensions
                 {
                     IdUsuario = req.IdUsuario,
                     FechaCompra = DateTime.Now,
-                    Items=req.Items
+                    Items=req.items
                 };
 
                 await repo.AgregarOrdenes(orden);
 
                 return Results.Created(
-                    $"/OrdenComp/{OrdenCompras.IdOrden}",
-                    carrito
+                    $"/OrdenComp/{orden.IdOrdenCompra}",
+                    orden
                 );
             })
 .WithTags("OrdenCompras");

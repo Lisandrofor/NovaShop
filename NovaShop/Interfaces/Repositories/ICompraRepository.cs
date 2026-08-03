@@ -7,5 +7,7 @@ namespace NovaShop.Interfaces.Repositories
         Task<IEnumerable<OrdenCompras>> ObtenerOrdenesComp();
         Task<OrdenCompras?> ObtenerOrdenPorId(long id);
         Task AgregarOrdenes(OrdenCompras orden);
+
+        Task EliminarOrden(long id);     
     }
 }
