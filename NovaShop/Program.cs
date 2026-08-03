@@ -22,7 +22,7 @@ public partial class Program
         builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         builder.Services.AddScoped<IProductosRepository, ProductoRepository>();
         builder.Services.AddScoped<ICarritoRepository,CarritoRepository >();
-        builder.Servicee.AddScoped<IOrden
+        builder.Servicee.AddScoped<ICompraRepository, CompraRepository>();
 
         builder.AddAppLogging();
 
