@@ -63,7 +63,7 @@ public partial class Program
         app.MapEndpoints(); app.MapProductosEndpoints();
         app.MapItemEndpoints();
         app.MapOrdenesEndpoints();
-        app.Map
+        app.MapEndpointsOrdenCompra();
         app.Run();
     }
 }
